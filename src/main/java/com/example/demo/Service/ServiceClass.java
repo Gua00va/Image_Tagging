@@ -49,7 +49,7 @@ public class ServiceClass {
 
     public ITesseract getTesseractInstance() {
         ITesseract tesseract = new Tesseract();
-        tesseract.setDatapath("/usr/share/tesseract-ocr");
+        tesseract.setDatapath("/usr/share/tesseract-ocr/4.00/tessdata");
 
         return tesseract;
     }
