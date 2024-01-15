@@ -38,7 +38,7 @@ public class ServiceClass {
         try(PDDocument pd = PDDocument.load(file)) {
             PDFTextStripper textStripper = new PDFTextStripper();
             String text = textStripper.getText(pd);
-            System.out.println(text + "\n");
+//            System.out.println(text + "\n");
             return text;
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -67,14 +67,16 @@ public class ServiceClass {
     }
     public void processAllFiles(Collection<File> files, String folderPath) {
         ITesseract tesseract = getTesseractInstance();
+        PythonScriptIntegrationService pservice = new PythonScriptIntegrationService();
         System.out.println("Extracting Text!");
-//        for(File file: files) {
-//            getTextFromPDF(file);
-//        }
-        Collection<File> images = findAllFiles(folderPath, "jpeg");
-        for(File file: images) {
-            extractTextFromImages(file, tesseract);
+        for(File file: files) {
+            var text = getTextFromPDF(file);
+            pservice.runPythonScript(text);
         }
+//        Collection<File> images = findAllFiles(folderPath, "jpeg");
+//        for(File file: images) {
+//            extractTextFromImages(file, tesseract);
+//        }
     }
 
     //Processing text for keywords
