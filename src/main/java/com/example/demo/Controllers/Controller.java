@@ -18,10 +18,10 @@ public class Controller {
     ServiceClass serviceClass;
 
     @GetMapping("/getFiles/{folderPath}")
-    private ResponseEntity<String> getFiles(@PathVariable String folderPath) {
+    private ResponseEntity<byte[]> getFiles(@PathVariable String folderPath) {
 //        ResponseEntity.ok(serviceClass.findAllFiles(folderPath));
         String newPath = folderPath.replace('_', '/');
-        return ResponseEntity.ok(serviceClass.print(newPath));
+        return serviceClass.print(newPath);
     }
 
     @GetMapping("/hi")

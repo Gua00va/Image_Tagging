@@ -1,12 +1,14 @@
 package com.example.demo.Service;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PythonScriptIntegrationService {
-    public void runPythonScript(String text) {
+    public List<String> runPythonScript(String text) {
+        List<String> keywords = new ArrayList<>();
         ProcessBuilder processBuilder = new ProcessBuilder("python3", "/home/gua00va/text_processor.py");
         try {
-//            System.out.println();
             Process process = processBuilder.start();
 
             OutputStream outputStream = process.getOutputStream();
@@ -21,6 +23,8 @@ public class PythonScriptIntegrationService {
 
             String line;
             while ((line = reader.readLine()) != null) {
+                line.trim();
+                keywords.add(line);
                 System.out.println(line);
             }
 
@@ -35,5 +39,7 @@ public class PythonScriptIntegrationService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        return keywords;
     }
 }
